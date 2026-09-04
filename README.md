@@ -19,7 +19,7 @@ Features
 
 Usage
 1.	Clone or download the script.
-2.	Run it in a Jupyter Notebook, Google Colab, or any Python environment that supports display() (or replace display() calls with print() if running as a plain .py script).
+2.	Run it in Google Colab or any Python environment that supports display() (or replace display() calls with print() if running as a plain .py script).
 3.	Adjust the configuration section as needed:
 tickers = ['V', 'MA']
 start_date = '2023-01-01'
