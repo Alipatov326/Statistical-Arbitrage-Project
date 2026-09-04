@@ -1,7 +1,8 @@
 Overview
+
 This project implements a statistical arbitrage (pairs trading) strategy between Visa (V) and Mastercard (MA) stocks. It uses OLS regression to compute a hedge ratio between the two assets, calculates the price spread, and normalizes it into a Z-score to identify mean-reversion trading opportunities.
 
-When the spread deviates significantly from its historical mean (Z-score beyond ±2.0), the script flags potential entry signals for a long/short pairs trade. It also visualizes price relationships, spread distribution, trading opportunity zones, and mean-reversion exit points.
+When the spread deviates significantly from its historical mean (Z-score beyond +-2.0), the script flags potential entry signals for a long/short pairs trade. It also visualizes price relationships, spread distribution, trading opportunity zones, and mean-reversion exit points.
 
 Features
 •	Downloads historical price data for V and MA via Yahoo Finance (yfinance)
@@ -15,19 +16,6 @@ Features
   - Trading opportunity zones (shaded regions)
   - Mean-reversion exit points
 •	Summary statistics table of trading days by signal zone (Sell / Buy / Neutral)
-
-Requirements
-•	Python 3.8+
-•	Dependencies:
-  - numpy
-  - pandas
-  - yfinance
-  - statsmodels
-  - matplotlib
-  - seaborn
-
-Install with:
-pip install numpy pandas yfinance statsmodels matplotlib seaborn
 
 Usage
 1.	Clone or download the script.
