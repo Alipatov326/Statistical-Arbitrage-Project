@@ -44,10 +44,3 @@ Output Summary
 •	Green zones: Long V, Short MA
 •	Blue 'x' markers: Trade exit points (spread reverted to mean)
 •	A summary table reports the number and percentage of trading days spent in each signal zone.
-
-Disclaimer
-This project is for educational and research purposes only. It does not constitute financial advice. Past performance and backtested signals do not guarantee future results. Always conduct your own due diligence before trading.
-
-License
-Specify your preferred license (e.g., MIT, Apache 2.0) here.
-
