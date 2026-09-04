@@ -1,46 +1,53 @@
-Overview
+# Stat Arb V & MA
 
-This project implements a statistical arbitrage (pairs trading) strategy between Visa (V) and Mastercard (MA) stocks. It uses OLS regression to compute a hedge ratio between the two assets, calculates the price spread, and normalizes it into a Z-score to identify mean-reversion trading opportunities.
+A simple statistical arbitrage project comparing **Visa (V)** and **Mastercard (MA)** using a **pairs trading / mean reversion** framework.
 
-When the spread deviates significantly from its historical mean (Z-score beyond +-2.0), the script flags potential entry signals for a long/short pairs trade. It also visualizes price relationships, spread distribution, trading opportunity zones, and mean-reversion exit points.
+This project:
+- Downloads historical adjusted close prices for `V` and `MA`
+- Estimates a hedge ratio using **OLS regression**
+- Computes the **spread** between the two assets
+- Standardizes the spread using a **Z-score**
+- Identifies potential **entry** and **exit** signals
+- Visualizes price behavior, spread distribution, and trading zones
 
-Features
-•	Downloads historical price data for V and MA via Yahoo Finance (yfinance)
-•	Calculates hedge ratio using OLS linear regression (statsmodels)
-•	Computes and normalizes the price spread (Z-score)
-•	Generates buy/sell signals based on Z-score thresholds (±2.0)
-•	Visualizations:
-  - Z-score time series with threshold lines
-  - Dual-axis price comparison chart (V vs. MA)
-  - Z-score distribution histogram
-  - Trading opportunity zones (shaded regions)
-  - Mean-reversion exit points
-•	Summary statistics table of trading days by signal zone (Sell / Buy / Neutral)
+---
 
-Usage
-1.	Clone or download the script.
-2.	Run it in Google Colab or any Python environment that supports display() (or replace display() calls with print() if running as a plain .py script).
-3.	Adjust the configuration section as needed:
-tickers = ['V', 'MA']
-start_date = '2023-01-01'
-end_date = datetime.now().strftime('%Y-%m-%d')
-4.	Run all cells/sections sequentially — the script will:
-   - Fetch price data
-   - Fit the hedge ratio
-   - Plot the Z-score and trading signals
-   - Print recent trade signals and summary statistics
+## Overview
 
-Note: This script uses display(), which is native to Jupyter/Colab environments. If running as a standalone .py file, replace display(...) with print(...).
+Visa and Mastercard are highly related companies in the payments sector, which makes them a common candidate pair for relative value analysis.
 
-Trading Logic
+The strategy assumes that:
+- the two assets move together over time,
+- temporary deviations may occur,
+- and those deviations may eventually revert back toward their historical relationship.
 
-Condition	Signal
-Z-score > 2.0	SELL V / BUY MA
-Z-score < -2.0	BUY V / SELL MA
-Z-score returns to 0	Exit position (mean reversion)
+This notebook uses a simple linear regression approach to estimate that relationship and generate trading signals when the spread becomes unusually wide.
 
-Output Summary
-•	Red zones: Short V, Long MA
-•	Green zones: Long V, Short MA
-•	Blue 'x' markers: Trade exit points (spread reverted to mean)
-•	A summary table reports the number and percentage of trading days spent in each signal zone.
+---
+
+## Strategy Logic
+
+### 1. Retrieve historical price data
+
+The script downloads adjusted close prices for:
+- `V` = Visa
+- `MA` = Mastercard
+
+using the `yfinance` library.
+
+### 2. Estimate hedge ratio
+
+An **OLS regression** is run with:
+- `V` as the dependent variable
+- `MA` as the independent variable
+
+This produces:
+- `beta` = hedge ratio
+- `alpha` = intercept
+
+### 3. Calculate spread
+
+The spread is defined as:
+
+```python
+spread = V - (beta * MA + alpha)
